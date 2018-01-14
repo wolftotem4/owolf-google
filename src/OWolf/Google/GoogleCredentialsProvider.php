@@ -12,11 +12,6 @@ use OWolf\Laravel\UserOAuthManager;
 
 class GoogleCredentialsProvider extends ServiceProvider
 {
-    /**
-     * @var bool
-     */
-    protected $defer = true;
-
     public function register()
     {
         $this->app->resolving('owolf.provider', function (ProviderManager $manager, $app) {
@@ -38,15 +33,5 @@ class GoogleCredentialsProvider extends ServiceProvider
                 return new ApiKeyCredentials(new Google(), $key);
             });
         });
-    }
-
-    /**
-     * @return array
-     */
-    public function provides()
-    {
-        return [
-            'owolf.credentials', 'owolf.provider',
-        ];
     }
 }
