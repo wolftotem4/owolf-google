@@ -14,6 +14,12 @@ class GoogleCredentialsProvider extends ServiceProvider
     {
         $this->app->resolving('owolf.provider', function (ProviderManager $manager, $app) {
             $manager->addDriver('google.oauth', function ($name, $config) {
+                $config = array_get($config, 'oauth', []);
+
+                $config['redirectUri'] = isset($config['redirectUri'])
+                    ? value($config['redirectUri'])
+                    : route('oauth.callback', [$name]);
+
                 $provider = new Google(array_get($config, 'oauth', []));
                 return new GoogleOAuthHandler($provider, $name, $config);
             });
