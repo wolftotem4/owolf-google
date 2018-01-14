@@ -18,10 +18,10 @@ class GoogleCredentialsProvider extends ServiceProvider
 
     public function register()
     {
-        $this->app->resolving(CredentialsManager::class, function (CredentialsManager $manager, $app) {
+        $this->app->resolving(CredentialsManager::class, function ($manager, $app) {
             $manager->addDriver('google.oauth', function ($name, $config) use ($app) {
                 $manager = $this->app->make(UserOAuthManager::class);
-                $session = $manager->session('google.oauth');
+                $session = $manager->session($name);
                 $accessToken = $session->getAccessToken();
                 return new AccessTokenCredentials(new Google(), $accessToken);
             });
