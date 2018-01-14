@@ -3,7 +3,9 @@
     "license": "MIT",
     "require": {
         "league/oauth2-google": "^2.0",
-        "wolftotem4/owolf-laravel": "dev-master"
+        "wolftotem4/owolf-laravel": "dev-master",
+        "firebase/php-jwt": "^5.0",
+        "phpseclib/phpseclib": "^2.0"
     },
     "autoload": {
         "psr-4": {

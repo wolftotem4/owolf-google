@@ -6,7 +6,6 @@ use Illuminate\Support\ServiceProvider;
 use League\OAuth2\Client\Provider\Google;
 use OWolf\Credentials\AccessTokenCredentials;
 use OWolf\Credentials\ApiKeyCredentials;
-use OWolf\Laravel\CredentialsManager;
 use OWolf\Laravel\ProviderManager;
 use OWolf\Laravel\UserOAuthManager;
 
