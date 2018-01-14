@@ -3,7 +3,6 @@
 namespace OWolf\Google;
 
 use Illuminate\Support\ServiceProvider;
-use League\OAuth2\Client\Provider\Google;
 use OWolf\Credentials\AccessTokenCredentials;
 use OWolf\Credentials\ApiKeyCredentials;
 use OWolf\Laravel\ProviderManager;
