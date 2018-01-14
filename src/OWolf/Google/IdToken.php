@@ -62,6 +62,15 @@ class IdToken implements \ArrayAccess, Arrayable, \JsonSerializable
     }
 
     /**
+     * @param  string  $key
+     * @return bool
+     */
+    public function has($key)
+    {
+        return array_has($this->attributes, $key);
+    }
+
+    /**
      * @return string|null
      */
     public function getId()

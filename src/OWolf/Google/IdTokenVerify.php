@@ -26,6 +26,10 @@ class IdTokenVerify
      */
     protected $jwt;
 
+    /**
+     * IdTokenVerify constructor.
+     * @param \Firebase\JWT\JWT|null $jwt
+     */
     public function __construct(JWT $jwt = null)
     {
         $this->jwt = $jwt ?: $this->jwtService();

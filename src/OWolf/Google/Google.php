@@ -8,6 +8,11 @@ use League\OAuth2\Client\Token\AccessToken;
 
 class Google extends GoogleProvider
 {
+    /**
+     * Google constructor.
+     * @param array $options
+     * @param array $collaborators
+     */
     public function __construct(array $options = [], array $collaborators = [])
     {
         parent::__construct($options, $collaborators);
@@ -20,10 +25,10 @@ class Google extends GoogleProvider
      */
     protected function createAccessToken(array $response, AbstractGrant $grant)
     {
-        if (isset($response['id_token']) && ! ($response['id_token'] instanceof IdToken)) {
+        if (isset($response['id_token']) && is_string($response['id_token'])) {
             $idToken = (new IdTokenVerify)->verify($response['id_token']);
             if ($idToken) {
-//                ($idToken->get(''))
+                $idToken->has('sub') and ($response['resource_owner_id'] = $idToken->get('sub'));
                 $response['id_token'] = $idToken;
             }
         }
