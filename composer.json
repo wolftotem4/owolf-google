@@ -19,7 +19,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "OWolf\\Google\\CredentialsServiceProvider"
+                "OWolf\\Google\\GoogleCredentialsProvider"
             ]
         }
     }
