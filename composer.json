@@ -15,5 +15,12 @@
             "type": "vcs",
             "url": "https://github.com/wolftotem4/owolf-laravel.git"
         }
-    ]
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "OWolf\\Google\\CredentialsServiceProvider"
+            ]
+        }
+    }
 }
