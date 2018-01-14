@@ -19,14 +19,14 @@ class GoogleCredentialsProvider extends ServiceProvider
 
     public function register()
     {
-        $this->app->resolving(ProviderManager::class, function (ProviderManager $manager, $app) {
+        $this->app->resolving('owolf.provider', function (ProviderManager $manager, $app) {
             $manager->addDriver('google.oauth', function ($name, $config) {
                 $provider = new Google(array_get($config, 'oauth', []));
                 return new GoogleOAuthHandler($provider, $name, $config);
             });
         });
 
-        $this->app->resolving(CredentialsManager::class, function ($manager, $app) {
+        $this->app->resolving('owolf.credentials', function ($manager, $app) {
             $manager->addDriver('google.oauth', function ($name, $config) use ($app) {
                 $manager = $this->app->make(UserOAuthManager::class);
                 $session = $manager->session($name);
@@ -46,8 +46,7 @@ class GoogleCredentialsProvider extends ServiceProvider
     public function provides()
     {
         return [
-            'owolf.credentials', CredentialsManager::class,
-            'owolf.provider', ProviderManager::class,
+            'owolf.credentials', 'owolf.provider',
         ];
     }
 }
