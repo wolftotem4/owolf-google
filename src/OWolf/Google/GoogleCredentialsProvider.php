@@ -7,6 +7,7 @@ use League\OAuth2\Client\Provider\Google;
 use OWolf\Credentials\AccessTokenCredentials;
 use OWolf\Credentials\ApiKeyCredentials;
 use OWolf\Laravel\CredentialsManager;
+use OWolf\Laravel\ProviderManager;
 use OWolf\Laravel\UserOAuthManager;
 
 class GoogleCredentialsProvider extends ServiceProvider
@@ -18,12 +19,18 @@ class GoogleCredentialsProvider extends ServiceProvider
 
     public function register()
     {
+        $this->app->resolving(ProviderManager::class, function (ProviderManager $manager, $app) {
+            $manager->addDriver('google.oauth', function ($name, $config) {
+                $provider = new Google(array_get($config, 'oauth', []));
+                return new GoogleOAuthHandler($provider, $name, $config);
+            });
+        });
+
         $this->app->resolving(CredentialsManager::class, function ($manager, $app) {
             $manager->addDriver('google.oauth', function ($name, $config) use ($app) {
                 $manager = $this->app->make(UserOAuthManager::class);
                 $session = $manager->session($name);
-                $accessToken = $session->getAccessToken();
-                return new AccessTokenCredentials(new Google(), $accessToken);
+                return new AccessTokenCredentials($session->provider(), $session->getAccessToken());
             });
 
             $manager->addDriver('google.api', function ($name, $config) {
@@ -40,6 +47,7 @@ class GoogleCredentialsProvider extends ServiceProvider
     {
         return [
             'owolf.credentials', CredentialsManager::class,
+            'owolf.provider', ProviderManager::class,
         ];
     }
 }
