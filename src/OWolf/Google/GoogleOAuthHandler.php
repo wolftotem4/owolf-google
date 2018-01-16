@@ -38,4 +38,23 @@ class GoogleOAuthHandler extends ProviderHandler implements OAuthHandler
             return false;
         }
     }
+
+    /**
+     * @param  \League\OAuth2\Client\Token\AccessToken  $token
+     * @return string|null
+     */
+    public function getName(AccessToken $token)
+    {
+        $resouceOwner = $this->getResourceOwner($token);
+        return $resouceOwner->getName();
+    }
+
+    /**
+     * @param  \League\OAuth2\Client\Token\AccessToken  $token
+     * @return string|null
+     */
+    public function getEmail(AccessToken $token)
+    {
+        return array_get($token->getValues(), 'id_token.email') ?: $this->getResourceOwner($token)->getEmail();
+    }
 }
