@@ -5,14 +5,13 @@ namespace OWolf\Google;
 use Illuminate\Support\ServiceProvider;
 use OWolf\Credentials\AccessTokenCredentials;
 use OWolf\Credentials\ApiKeyCredentials;
-use OWolf\Laravel\ProviderManager;
 use OWolf\Laravel\UserOAuthManager;
 
 class GoogleCredentialsProvider extends ServiceProvider
 {
     public function register()
     {
-        $this->app->resolving('owolf.provider', function (ProviderManager $manager, $app) {
+        $this->app->resolving('owolf.provider', function ($manager, $app) {
             $manager->addDriver('google.oauth', function ($name, $config) {
                 $oauth = array_get($config, 'oauth', []);
 
