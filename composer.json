@@ -3,7 +3,7 @@
     "license": "MIT",
     "require": {
         "league/oauth2-google": "^2.0",
-        "wolftotem4/owolf-laravel": "dev-master",
+        "wolftotem4/owolf-laravel": "^0.1.0",
         "firebase/php-jwt": "^5.0",
         "phpseclib/phpseclib": "^2.0"
     },
@@ -12,12 +12,6 @@
             "OWolf\\Google\\": "src/OWolf/Google/"
         }
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/wolftotem4/owolf-laravel.git"
-        }
-    ],
     "extra": {
         "laravel": {
             "providers": [
