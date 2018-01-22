@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use OWolf\Credentials\AccessTokenCredentials;
 use OWolf\Credentials\ApiKeyCredentials;
 use OWolf\Laravel\UserOAuthManager;
+use OWolf\Laravel\Util;
 
 class GoogleCredentialsProvider extends ServiceProvider
 {
@@ -15,9 +16,7 @@ class GoogleCredentialsProvider extends ServiceProvider
             $manager->addDriver('google.oauth', function ($name, $config) {
                 $oauth = array_get($config, 'oauth', []);
 
-                $oauth['redirectUri'] = isset($oauth['redirectUri'])
-                    ? value($oauth['redirectUri'])
-                    : route('oauth.callback', [$name]);
+                $oauth['redirectUri'] = Util::redirectUri(array_get($oauth, 'redirectUri'), $name);
 
                 $provider = new Google($oauth);
                 return new GoogleOAuthHandler($provider, $name, $config);
