@@ -1,5 +1,6 @@
 {
     "name": "wolftotem4/owolf-google",
+    "description": "Google Driver for OWolf-Laravel",
     "license": "MIT",
     "require": {
         "league/oauth2-google": "^2.0",
